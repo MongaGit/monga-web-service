@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+        integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <input type="text" name="" id="palavra" oninput="enviar()">
+    <button onclick="">Enviar</button>
+    <hr>
+    <p id="resultado"></p>
+
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.1/socket.io.js"
+    integrity="sha512-Z6C1p1NIexPj5MsVUunW4pg7uMX6/TT3CUVldmjXx2kpip1eZcrAnxIusDxyFIikyM9A61zOVNgvLr/TGudOQg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer">
+</script>
+
+<script>
+
+    var socket = io("http://20.226.91.236:3000");
+    socket.emit("welcome",{nome: "Monga User"});
+
+    socket.on("resultado", (data) =>{
+        console.log(data);
+        var p = document.getElementById("resultado");
+        p.innerHTML = data;
+    })
+
+    function enviar(){
+        var input = document.getElementById("palavra");
+        socket.emit("palavra",input.value)
+    }
+
+</script>
+
+
+</html>
